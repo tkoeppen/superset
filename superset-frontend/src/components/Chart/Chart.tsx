@@ -164,6 +164,22 @@ const LoadingDiv = styled.div`
   transform: translate(-50%, -50%);
 `;
 
+const LoadingOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.colors.grayscale.light5}99;
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  pointer-events: none;
+`;
+
 const MessageSpan = styled.span`
   display: block;
   text-align: center;
@@ -288,6 +304,14 @@ class Chart extends PureComponent<ChartProps, {}> {
     );
   }
 
+  renderLoadingOverlay(databaseName: string | undefined) {
+    return (
+      <LoadingOverlay data-test="loading-overlay">
+        <Loading position="inline-centered" />
+      </LoadingOverlay>
+    );
+  }
+
   renderChartContainer() {
     return (
       <div className="slice_container" data-test="slice-container">
@@ -377,9 +401,8 @@ class Chart extends PureComponent<ChartProps, {}> {
           height={height}
           width={width}
         >
-          {isLoading
-            ? this.renderSpinner(databaseName)
-            : this.renderChartContainer()}
+          {this.renderChartContainer()}
+          {isLoading && this.renderLoadingOverlay(databaseName)}
         </Styles>
       </ErrorBoundary>
     );
