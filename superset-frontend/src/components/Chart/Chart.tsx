@@ -305,11 +305,7 @@ class Chart extends PureComponent<ChartProps, {}> {
   }
 
   renderLoadingOverlay(databaseName: string | undefined) {
-    return (
-      <LoadingOverlay data-test="loading-overlay">
-        <Loading position="inline-centered" />
-      </LoadingOverlay>
-    );
+    return <LoadingOverlay data-test="loading-overlay" />;
   }
 
   renderChartContainer() {
