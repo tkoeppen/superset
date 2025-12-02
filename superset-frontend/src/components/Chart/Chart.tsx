@@ -153,6 +153,24 @@ const Styles = styled.div<{ height: number; width?: number }>`
     .alert {
       margin: ${({ theme }) => theme.gridUnit * 2}px;
     }
+
+    /* Optimize rendering performance */
+    will-change: contents;
+
+    /* Smooth table cell content updates to reduce visual flickering */
+    table {
+      tbody td,
+      tbody th {
+        transition: background-color 0.15s ease-in-out,
+                    color 0.15s ease-in-out,
+                    opacity 0.1s ease-in-out;
+      }
+    }
+
+    /* Smooth chart content transitions */
+    > div {
+      transition: opacity 0.1s ease-in-out;
+    }
   }
 `;
 

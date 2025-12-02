@@ -126,5 +126,5 @@ test-report.html
 superset/static/stats/statistics.html
 .aider*
 
--# python venc
--build-venv/
+# python venc
+build-venv/
