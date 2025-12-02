@@ -26,7 +26,7 @@ if [ "$DEV_MODE" == "true" ]; then
     fi
 fi
 REQUIREMENTS_LOCAL="/app/docker/requirements-local.txt"
-PORT=${PORT:-8088}
+PORT=${PORT:-8086}
 # If Cypress run – overwrite the password for admin and export env variables
 if [ "$CYPRESS_CONFIG" == "true" ]; then
     export SUPERSET_TESTENV=true

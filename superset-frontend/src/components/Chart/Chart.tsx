@@ -153,24 +153,6 @@ const Styles = styled.div<{ height: number; width?: number }>`
     .alert {
       margin: ${({ theme }) => theme.gridUnit * 2}px;
     }
-
-    /* Optimize rendering performance */
-    will-change: contents;
-
-    /* Smooth table cell content updates to reduce visual flickering */
-    table {
-      tbody td,
-      tbody th {
-        transition: background-color 0.15s ease-in-out,
-                    color 0.15s ease-in-out,
-                    opacity 0.1s ease-in-out;
-      }
-    }
-
-    /* Smooth chart content transitions */
-    > div {
-      transition: opacity 0.1s ease-in-out;
-    }
   }
 `;
 
@@ -180,22 +162,6 @@ const LoadingDiv = styled.div`
   top: 50%;
   width: 80%;
   transform: translate(-50%, -50%);
-`;
-
-const LoadingOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.colors.grayscale.light5}99;
-  backdrop-filter: blur(2px);
-  z-index: 1000;
-  pointer-events: none;
 `;
 
 const MessageSpan = styled.span`
@@ -322,10 +288,6 @@ class Chart extends PureComponent<ChartProps, {}> {
     );
   }
 
-  renderLoadingOverlay(databaseName: string | undefined) {
-    return <LoadingOverlay data-test="loading-overlay" />;
-  }
-
   renderChartContainer() {
     return (
       <div className="slice_container" data-test="slice-container">
@@ -415,8 +377,9 @@ class Chart extends PureComponent<ChartProps, {}> {
           height={height}
           width={width}
         >
-          {this.renderChartContainer()}
-          {isLoading && this.renderLoadingOverlay(databaseName)}
+          {isLoading
+            ? this.renderSpinner(databaseName)
+            : this.renderChartContainer()}
         </Styles>
       </ErrorBoundary>
     );

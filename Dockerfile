@@ -150,7 +150,7 @@ ENV SUPERSET_HOME="/app/superset_home" \
     SUPERSET_ENV="production" \
     FLASK_APP="superset.app:create_app()" \
     PYTHONPATH="/app/pythonpath" \
-    SUPERSET_PORT="8088"
+    SUPERSET_PORT="8086"
 
 # Copy the entrypoints, make them executable in userspace
 COPY --chmod=755 docker/entrypoints /app/docker/entrypoints
