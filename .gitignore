@@ -125,3 +125,6 @@ docker/*local*
 test-report.html
 superset/static/stats/statistics.html
 .aider*
+
+-# python venc
+-build-venv/
