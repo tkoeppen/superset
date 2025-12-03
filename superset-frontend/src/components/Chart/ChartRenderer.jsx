@@ -256,10 +256,13 @@ class ChartRenderer extends Component {
   render() {
     const { chartAlert, chartStatus, chartId, emitCrossFilters } = this.props;
 
-    // Skip chart rendering
-    if (chartStatus === 'loading' || !!chartAlert || chartStatus === null) {
+    // Skip chart rendering only for alerts and null status, but keep rendering during loading
+    if (!!chartAlert || chartStatus === null) {
       return null;
     }
+
+    // If loading, still render the previous chart to prevent unmounting
+    const isLoading = chartStatus === 'loading';
 
     this.renderStartTime = Logger.getTimestamp();
 
@@ -350,6 +353,11 @@ class ChartRenderer extends Component {
           onContextMenu={
             this.state.showContextMenu ? this.onContextMenuFallback : undefined
           }
+          style={{
+						opacity: isLoading ? 1 : 1,
+						// transition: 'opacity 0.15s ease-in-out',
+						pointerEvents: isLoading ? 'none' : 'auto',
+					}}
         >
           <SuperChart
             disableErrorBoundary
